@@ -18,9 +18,12 @@ elif not lib_available:
 
 from ROOT import util
 # Import class
-from ROOT.util import Range, UniqueRangeSet
+#from ROOT.util import Range, UniqueRangeSet
+Range = util.Range
+UniqueRangeSet = util.UniqueRangeSet
 # Import functions
-from ROOT.util import bmark_range_insert, bmark_range_exclude
-
+#from ROOT.util import bmark_range_insert, bmark_range_exclude
+bmark_range_insert = util.bmark_range_insert
+bmark_range_exclude = util.bmark_range_exclude
     
 
