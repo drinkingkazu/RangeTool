@@ -16,4 +16,4 @@ rootlibmap() {
 
 ######################################################
 # Range
-rootlibmap libKazuTest_Range.rootmap libKazuTest_Range.so $LARLITE_USERDEVDIR/KazuTest/Range/LinkDef.h 
+rootlibmap libRangeTool.rootmap libRangeTool.so $RANGETOOL_DIR/LinkDef.h 
