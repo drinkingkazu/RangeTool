@@ -15,7 +15,7 @@
 *.pcm
 *.swp
 *.pyc
-/doc/dOxy*
+/doc/*
 /bin/larlite
 /GNUmakefile
 /UserDev/*

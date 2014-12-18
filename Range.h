@@ -1,3 +1,15 @@
+/**
+ * \file Range.h
+ *
+ * \ingroup RangeTool
+ *
+ * \brief Class def header for a class Range
+ *
+ * @author kazuhiro
+ */
+
+/** \addtogroup RangeTool
+    @{*/
 #ifndef RANGE_H
 #define RANGE_H
 
@@ -12,26 +24,34 @@ namespace util {
 
   /**
      \class Range
-      std::pair to represent a "Range" w/ notion of ordering.
-      Note the specialization requires a template class T to have less operator
-      implemented.
+     @brief represents a "Range" w/ notion of ordering.
+     A range is defined by a pair of "start" and "end" values. This is stored in std::pair    \n
+     attribute util::Range::_window. This attribute is protected so that the start/end cannot \n
+     be changed w/o a check that start is always less than end. Note the specialization       \n
+     requires a template class T to have less operator implemented.   \n
   */
   template <class T>
   class Range {
+    // Make it a friend so UniqueRangeSet can access protected guys
     friend class UniqueRangeSet<T>;
+
   private:
+    /// Default ctor is hidden
     Range(){}
 
   public:
+    /// Enforced ctor. start must be less than end.
     Range(const T& start,
 	  const T& end)
       : _window(start,end)
     { if(start>=end) throw std::runtime_error("Inserted invalid range: end before start."); }
-    
+
+    /// Default dtor
     ~Range(){}
     
-    /// Intuitive accessor
+    /// "start" accessor
     const T& Start() const { return _window.first;  }
+    /// "end" accessor
     const T& End()   const { return _window.second; }
     /// Setter
     void Set(const T& s, const T& e)
@@ -40,8 +60,10 @@ namespace util {
       _window.first  = s;
       _window.second = e;
     }
-    
-    /// Ordering w/ another Range
+
+    //
+    // Ordering w/ another Range
+    //
     inline bool operator< (const Range& rhs) const
     {return ( _window.second < rhs.Start() ); }
     inline bool operator> (const Range& rhs) const
@@ -50,14 +72,16 @@ namespace util {
     {return ( _window.first == rhs.Start() && _window.second == rhs.End() ); }
     inline bool operator!=(const Range& rhs) const
     {return !( (*this) == rhs ); }
-
+    
+    //
     // Ordering w/ T
+    //
     inline bool operator< (const T& rhs) const
     {return (_window.second < rhs); }
     inline bool operator> (const T& rhs) const
     {return (_window.first > rhs); }
 
-    /// Merging utility
+    /// Merge two util::Range into 1
     void Merge(const Range& a) {
       _window.first  = std::min( _window.first,  a.Start() );
       _window.second = std::max( _window.second, a.End()   );
@@ -73,6 +97,10 @@ namespace util {
 namespace std {
   // Implement pointer comparison in case it's useful
   template <class T>
+  /**
+     \class less
+     Implementation of std::less for util::Range pointers
+   */
   class less<util::Range<T>*>
   {
   public:
@@ -82,3 +110,4 @@ namespace std {
 }
 
 #endif
+/** @} */ // end of doxygen group

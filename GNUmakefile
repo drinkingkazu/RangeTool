@@ -26,5 +26,13 @@ CXXFLAGS +=  `root-config --cflags`
 # call the common GNUmakefile
 include $(RANGETOOL_DIR)/Makefile/GNUmakefile.CORE
 
+doxygen:
+	@echo 'dOxygenising your code...'
+	@mkdir -p $(RANGETOOL_DIR)/config/dOxygenMyProject
+	@doxygen $(RANGETOOL_DIR)/config/doxygenMyProject.script
 
+doxygen+:
+	@echo 'dOxygenising MyProject + local-ROOT...'
+	@mkdir -p $(RANGETOOL_DIR)/config/dOxygenMyProject+
+	@doxygen $(RANGETOOL_DIR)/config/doxygenMyProject+.script
 

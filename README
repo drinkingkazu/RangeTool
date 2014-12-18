@@ -1,0 +1,15 @@
+/** @defgroup RangeTool RangeTool
+    @brief Utility extension of std::set of a "range", primarily considered for a time range.
+
+    This utlity package introduces two classes: util::Range and util::UniqueRangeSet. \n
+
+    a) util::Range is a templated class. For a specialized type T, it is defined by two       \n
+       values: "start" and "end" where "start" is required to be less than "end". Naturally   \n
+       type T must have std::less opereator implemented. Although it is technically std::pair,\n
+       it does not inherit from it and the actual values are protected to prohibit invalid    \n
+       change of values (i.e. "end" must be always larger than "start").                      \n
+
+    b) util::UniqueRangeSet is a std::set<util::Range<T>> which has an overriden emplace and   \n
+       insert functions. See the class description for details. This container class is meant  \n
+       to hold a unique, non-overlapping set of util::Range instances.
+ */
