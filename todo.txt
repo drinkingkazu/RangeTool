@@ -1,0 +1,6 @@
+(*) Ask Wes's opinion about changing insert/emplace function name w/ lower case as these override the original implementation (otherwise there's no check of overlapping regions
+
+(*) optimize Exclusive() function not to loop over all contents. use lower_bound and upper_bound.
+
+(*) override insert_hint 
+
