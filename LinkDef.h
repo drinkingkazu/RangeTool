@@ -21,7 +21,7 @@
 // Functions
 #pragma link C++ namespace util::range+;
 #pragma link C++ function util::range::bmark_insert(const size_t)+;
-#pragma link C++ function util::range::bmark_exclude(const util::UniqueRangeSet<double>&)+;
+#pragma link C++ function util::range::bmark_exclude(const size_t)+;
 //ADD_NEW_CLASS ... do not change this line
 #endif
 

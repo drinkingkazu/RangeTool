@@ -23,50 +23,39 @@ namespace util {
 
     ~UniqueRangeSet(){}
 
-    UniqueRangeSet<T> Exclusive(const T start, const T end)
+    void Merge(const UniqueRangeSet<T>& in)
+    { for(auto const& r : in) emplace(r._window.first,r._window.second); }
+
+    UniqueRangeSet<T> Exclusive(const T start, const T end) const
     {
       UniqueRangeSet<T> res;
-      auto tmp = Range<T>(start,end);
-      
-      for(auto const& s : (*this)) {
-	
-	//std::cout<<"Inspecting: "<<s._window.first << " : " << s._window.second << std::endl;
-	
-	if(res.size() == this->size()+1) break;
-	
-	if(tmp._window.first == tmp._window.second) break;
-	
-	if(s < tmp) continue;
-	
-	if(tmp < s) { res.insert(s); break; }
 
-	// Inclusive (1)
-	if(tmp._window.first <= s._window.first && s._window.second <= tmp._window.second) {
-	  if(tmp._window.first != s._window.first) res.emplace(tmp._window.first,s._window.first);
-	  tmp._window.first=s._window.second;
-	  continue;
-	}
-	
-	// Inclusive (2)
-	if(s._window.first <= tmp._window.first && tmp._window.second <= s._window.second) break;
-	
-	// Half-overlap (1)
-	if(tmp._window.first < s._window.first) {
-	  if(tmp._window.first != s._window.first) res.emplace(tmp._window.first,s._window.first);
-	  break;
-	}
-	
-	// Half-overlap (2)
-	if(s._window.first <= tmp._window.first) {
-	  tmp._window.first = s._window.second;
-	}
+      auto start_iter = std::lower_bound(this->begin(),this->end(),start);
+      auto end_iter   = std::lower_bound(this->begin(),this->end(),end);
+      
+      // Anything to add to the head?
+      if(start < (*start_iter)._window.first) res.emplace(start,(*start_iter)._window.first);
+
+      auto iter = start_iter;
+      T  tmp_end=end;
+      while(iter != this->end()) {
+	if(iter != start_iter)
+	  res.emplace(tmp_end,(*iter)._window.first);
+	tmp_end   = (*iter)._window.second;
+	if(iter == end_iter) break;
+	++iter;
       }
+
+      // Anything to add to the tail?
+      if(tmp_end < end) 
+	res.emplace(tmp_end,end);
+
       return res;
     }
     
     /// Modified insert that merges overlapping range. Return = # merged range.
     size_t emplace(const T& start,const T& end) {
-      
+
       auto res = std::set<util::Range<T> >::emplace(start,end);
       if(res.second) return 0;
       

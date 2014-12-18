@@ -41,10 +41,22 @@ namespace util {
       _window.second = e;
     }
     
-    /// Ordering
+    /// Ordering w/ another Range
     inline bool operator< (const Range& rhs) const
     {return ( _window.second < rhs.Start() ); }
-    
+    inline bool operator> (const Range& rhs) const
+    {return ( _window.first > rhs.End() ); }
+    inline bool operator==(const Range& rhs) const
+    {return ( _window.first == rhs.Start() && _window.second == rhs.End() ); }
+    inline bool operator!=(const Range& rhs) const
+    {return !( (*this) == rhs ); }
+
+    // Ordering w/ T
+    inline bool operator< (const T& rhs) const
+    {return (_window.second < rhs); }
+    inline bool operator> (const T& rhs) const
+    {return (_window.first > rhs); }
+
     /// Merging utility
     void Merge(const Range& a) {
       _window.first  = std::min( _window.first,  a.Start() );
@@ -54,8 +66,8 @@ namespace util {
   protected:
     /// Protected to avoid user's illegal modification on first/second (sorry users!)
     std::pair<T,T> _window;
-  };
 
+  };
 }
 
 namespace std {
