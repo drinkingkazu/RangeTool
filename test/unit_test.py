@@ -6,7 +6,13 @@ except ImportError:
     error('pyrange module not available')
     sys.exit(1)
 
-from test_func import *
+#
+# Run unit tests first. Failure = exit
+#
+from test_func import test_overlap
+if not test_overlap(): sys.exit(1)
 
-benchmark()
+
+
+
 

@@ -23,7 +23,7 @@ Range = util.Range
 UniqueRangeSet = util.UniqueRangeSet
 # Import functions
 #from ROOT.util import bmark_range_insert, bmark_range_exclude
-bmark_insert = util.range.bmark_insert
+bmark_insert  = util.range.bmark_insert
 bmark_exclude = util.range.bmark_exclude
-    
+test_overlap  = util.range.test_overlap    
 

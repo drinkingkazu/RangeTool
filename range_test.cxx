@@ -1,7 +1,7 @@
-#ifndef RANGEBENCHMARK_CXX
-#define RANGEBENCHMARK_CXX
+#ifndef RANGETEST_CXX
+#define RANGETEST_CXX
 
-#include "RangeUtil.h"
+#include "range_test.h"
 #include <time.h>
 namespace util {
   namespace range {
@@ -78,7 +78,7 @@ namespace util {
       ex_range_set.Merge(range_set);
       if( ex_range_set.size() != 1 ) return kMergeExclusive;
 
-      return kNoError;
+      return kMergeNoError;
     }
   }  
 }

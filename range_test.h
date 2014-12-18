@@ -1,5 +1,5 @@
-#ifndef RANGEUTIL_H
-#define RANGEUTIL_H
+#ifndef RANGETEST_H
+#define RANGETEST_H
 
 #include "UniqueRangeSet.h"
 
