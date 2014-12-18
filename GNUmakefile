@@ -28,11 +28,11 @@ include $(RANGETOOL_DIR)/Makefile/GNUmakefile.CORE
 
 doxygen:
 	@echo 'dOxygenising your code...'
-	@mkdir -p $(RANGETOOL_DIR)/config/dOxygenMyProject
-	@doxygen $(RANGETOOL_DIR)/config/doxygenMyProject.script
+	@mkdir -p $(RANGETOOL_DIR)/config/dOxygenRangeTool
+	@doxygen $(RANGETOOL_DIR)/config/doxygenRangeTool.script
 
 doxygen+:
-	@echo 'dOxygenising MyProject + local-ROOT...'
-	@mkdir -p $(RANGETOOL_DIR)/config/dOxygenMyProject+
-	@doxygen $(RANGETOOL_DIR)/config/doxygenMyProject+.script
+	@echo 'dOxygenising RangeTool + local-ROOT...'
+	@mkdir -p $(RANGETOOL_DIR)/config/dOxygenRangeTool+
+	@doxygen $(RANGETOOL_DIR)/config/doxygenRangeTool+.script
 
