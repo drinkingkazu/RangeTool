@@ -9,14 +9,19 @@
 #pragma link off all classes;
 #pragma link off all functions;
 
+// Classes
 #pragma link C++ namespace util+;
-//#pragma link C++ class util::Range<size_t>+;
-#pragma link C++ class util::UniqueRangeSet<size_t>+;
-#pragma link C++ class util::UniqueRangeSet<double>+;
+#pragma link C++ class util::Range<int>+;
 #pragma link C++ class util::Range<size_t>+;
 #pragma link C++ class util::Range<double>+;
-#pragma link C++ function util::bmark_range_insert(const size_t)+;
-#pragma link C++ function util::bmark_range_exclude(const util::UniqueRangeSet<double>&)+;
+#pragma link C++ class util::UniqueRangeSet<int>+;
+#pragma link C++ class util::UniqueRangeSet<size_t>+;
+#pragma link C++ class util::UniqueRangeSet<double>+;
+
+// Functions
+#pragma link C++ namespace util::range+;
+#pragma link C++ function util::range::bmark_insert(const size_t)+;
+#pragma link C++ function util::range::bmark_exclude(const util::UniqueRangeSet<double>&)+;
 //ADD_NEW_CLASS ... do not change this line
 #endif
 

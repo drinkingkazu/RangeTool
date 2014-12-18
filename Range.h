@@ -1,7 +1,6 @@
 #ifndef RANGE_H
 #define RANGE_H
 
-#include <set>
 #include <vector>
 #include <iostream>
 #include <exception>
@@ -20,7 +19,6 @@ namespace util {
   template <class T>
   class Range {
     friend class UniqueRangeSet<T>;
-
   private:
     Range(){}
 
@@ -53,9 +51,6 @@ namespace util {
       _window.second = std::max( _window.second, a.End()   );
     }
 
-    /// UniqueRangeSet generator for a given set of ranges
-    UniqueRangeSet<T> Exclude(const UniqueRangeSet<T>& range_s) const;
-
   protected:
     /// Protected to avoid user's illegal modification on first/second (sorry users!)
     std::pair<T,T> _window;
@@ -74,46 +69,4 @@ namespace std {
   };
 }
 
-namespace util {
-  /**
-     \class UniqueRangeSet
-     std::set<range> w/ modified insert function. Original std::set
-     does not allow modification of element. I assume what we're interested
-     in is "find if the range already exists, and merge if it exists". The
-     insert function does that by recursively looking up overlapping elements
-     w.r.t. input argument of insert function.
-  */
-  template <class T>
-  class UniqueRangeSet : public std::set<util::Range<T> > {
-  public:
-    UniqueRangeSet(){}
-    ~UniqueRangeSet(){}
-    
-    /// Modified insert that merges overlapping range. Return = # merged range.
-    size_t Insert(const Range<T>& a) {
-      
-      auto res = std::set<util::Range<T> >::insert(a);
-      if(res.second) return 0;
-      
-      auto& iter = res.first;
-      auto tmp_a = a;
-      size_t ctr=0;
-      while(iter != this->end()) {
-	tmp_a.Merge((*iter));
-	this->erase(iter);
-	iter = this->find(tmp_a);
-	++ctr;
-      }
-      this->insert(tmp_a);
-      return ctr;
-    }
-
-  };
-}
-
 #endif
-
-
-
-
-
