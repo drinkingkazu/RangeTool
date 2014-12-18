@@ -6,24 +6,18 @@ def benchmark():
 
     info('Benchmark: UniqueRangeSet::Insert for %d times ' % n)
     t_start = time.time()
-    res = pyrange.bmark_range_insert(n)
+    res = pyrange.bmark_insert(n)
     t_end = time.time()
-    info('Benchmark: time total: %s (average %s/insert)' % (t_end-t_start,float(t_end-t_start)/n))
-    if not res:
+    if res < 0:
         error('Benchmark: Failed! Aborting...')
         return False
-    info('Benchmark: SUCCESS')
+    info('Benchmark: SUCCESS ... time %s (average %s/insert)' % (res, res/n))
 
-    range_list = pyrange.UniqueRangeSet("double")()
-    for x in xrange(n): 
-        element = pyrange.Range("double")(4*x, 4*x+3)
-        range_list.Insert(element)
-    info('Benchmark: Range::Exclude with %d entries of UniqueRangeSet' % range_list.size())
+    info('Benchmark: Range::Exclude with %d entries of UniqueRangeSet' % n)
     t_start = time.time()
-    res = pyrange.bmark_range_exclude(range_list)
+    res = pyrange.bmark_exclude(n)
     t_end = time.time()
-    info('Benchmark: time total: %s (average %s/insert)' % (t_end-t_start,float(t_end-t_start)/n))
-    if not res:
+    if res < 0:
         error('Benchmark: Failed! Aborting...')
         return False
-    info('Benchmark: SUCCESS')
+    info('Benchmark: SUCCESS ... time %s ' % res)
